@@ -1,12 +1,12 @@
 {
-  "name": "工作周报收集",
-  "short_name": "周报收集",
+  "name": "智慧云影研发部工作周报",
+  "short_name": "工作周报",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "background_color": "#f7faf8",
   "theme_color": "#155e75",
-  "description": "成员离线填写工作周报，Leader 汇总导出 Excel。",
+  "description": "智慧云影研发部工作周报。",
   "icons": [
     {
       "src": "icons/icon-192.png",

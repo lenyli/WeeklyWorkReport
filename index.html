@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#155e75" />
-    <title>工作周报收集</title>
+    <title>智慧云影研发部工作周报</title>
     <link rel="manifest" href="manifest.webmanifest" />
     <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="icons/icon-192.png" />
@@ -13,8 +13,7 @@
   <body>
     <header class="app-header">
       <div>
-        <h1>工作周报收集</h1>
-        <p>填写后自动提交到统一收集端，可离线安装为 PWA。</p>
+        <h1>智慧云影研发部工作周报</h1>
       </div>
       <div id="accountBar" class="account-bar hidden">
         <strong id="accountName"></strong>
@@ -27,13 +26,12 @@
         <div class="section-head">
           <div>
             <h2 id="loginTitle">进入周报</h2>
-            <p>输入姓名即可。</p>
           </div>
         </div>
         <form id="loginForm" class="login-row">
           <label>
             姓名
-            <input id="nameInput" autocomplete="name" required placeholder="例如：黎明晗" />
+            <input id="nameInput" autocomplete="name" required />
           </label>
           <button type="submit">进入</button>
         </form>
@@ -44,9 +42,8 @@
         <div class="section-head">
           <div>
             <h2 id="reportTitle">我的周报</h2>
-            <p id="reportHint">草稿会保存在本机，提交后会自动进入统一收集端。</p>
           </div>
-          <button id="downloadBackupBtn" class="secondary" type="button">下载本地备份</button>
+          <button id="downloadBackupBtn" class="secondary" type="button">下载个人 Excel</button>
         </div>
 
         <div class="toolbar">
@@ -65,7 +62,6 @@
         <div class="section-head">
           <div>
             <h2 id="collectorTitle">收集汇总</h2>
-            <p>成员提交后会自动出现在这里，可查看缺交并导出 Excel。</p>
           </div>
           <button id="refreshCollectorBtn" class="secondary" type="button">刷新</button>
         </div>
@@ -103,7 +99,6 @@
         <div class="section-head">
           <div>
             <h2 id="rootTitle">最高权限</h2>
-            <p>查看全部报告、汇总预览和所有成员最后一次登录时间。</p>
           </div>
           <button id="refreshRootBtn" class="secondary" type="button">刷新</button>
         </div>

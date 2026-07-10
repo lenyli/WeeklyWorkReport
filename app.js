@@ -104,7 +104,20 @@ async function api(path, options = {}) {
     ...options,
   });
   const text = await response.text();
-  const data = text ? JSON.parse(text) : null;
+  const contentType = response.headers.get("content-type") || "";
+  if (text && !contentType.includes("application/json")) {
+    const trimmed = text.trim();
+    if (trimmed.startsWith("<")) {
+      throw new Error("当前静态网页未连接收集服务，请使用带服务端的地址访问。");
+    }
+    throw new Error("服务返回格式不正确。");
+  }
+  let data = null;
+  try {
+    data = text ? JSON.parse(text) : null;
+  } catch {
+    throw new Error("服务返回格式不正确。");
+  }
   if (!response.ok) throw new Error(data?.error || `请求失败：${response.status}`);
   return data;
 }
@@ -258,7 +271,8 @@ async function submitReport() {
 
 function downloadBackup() {
   const submission = lastSubmission || createSubmission();
-  downloadBlob(jsonBlob(submission), `周报备份_${submission.weekStart}_${submission.memberName}.json`);
+  const workbook = buildPersonalWorkbookData(submission);
+  downloadBlob(createXlsx(workbook), `周报_${submission.weekStart}_${submission.memberName}.xlsx`);
 }
 
 function jsonBlob(value) {
@@ -414,6 +428,32 @@ function exportRootWorkbook() {
   const weekStart = $("rootWeekStart").value;
   const workbook = buildWorkbookData(weekStart, rootData.roster, rootData.reports || {});
   downloadBlob(createXlsx(workbook), `groves_周报汇总_${weekStart}.xlsx`);
+}
+
+function buildPersonalWorkbookData(report) {
+  const weekStart = report.weekStart;
+  const rows = [
+    REPORT_COLUMNS.map((col) => ({ value: col.label, style: 1 })),
+    ...weekDates(weekStart).map((day, index) => {
+      const fields = report.rows?.[index]?.fields || {};
+      return [
+        { value: day.label, style: 2 },
+        { value: fields.dev || "", style: 3 },
+        { value: fields.site || "", style: 3 },
+        { value: fields.presales || "", style: 3 },
+        { value: fields.other || "", style: 3 },
+      ];
+    }),
+  ];
+  return {
+    sheets: [
+      {
+        name: sanitizeSheetName(report.memberName || "我的周报", new Set()),
+        columns: [12, 22, 22, 22, 24],
+        rows: rows.map((cells, index) => ({ height: index === 0 ? 38 : 60, cells })),
+      },
+    ],
+  };
 }
 
 function buildWorkbookData(weekStart, roster, reports) {
@@ -606,8 +646,11 @@ function sheetXml(sheet) {
     })
     .join("");
   return xmlDecl(`<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">
+<dimension ref="${ref}"/>
 <sheetViews><sheetView workbookViewId="0" showGridLines="0"><pane ySplit="1" topLeftCell="A2" activePane="bottomLeft" state="frozen"/></sheetView></sheetViews>
-<sheetFormatPr defaultRowHeight="18"/><dimension ref="${ref}"/><cols>${cols}</cols><sheetData>${rows}</sheetData>
+<sheetFormatPr defaultRowHeight="18"/>
+<cols>${cols}</cols>
+<sheetData>${rows}</sheetData>
 <pageMargins left="0.7" right="0.7" top="0.75" bottom="0.75" header="0.3" footer="0.3"/></worksheet>`);
 }
 
@@ -633,7 +676,13 @@ function xmlDecl(content) {
 }
 
 function xmlText(value) {
-  return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\r\n/g, "\n").replace(/\r/g, "\n");
+  return value
+    .replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/g, "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/\r\n/g, "\n")
+    .replace(/\r/g, "\n");
 }
 
 function xmlAttr(value) {
@@ -661,6 +710,7 @@ function zipStore(files) {
   const localParts = [];
   const centralParts = [];
   let offset = 0;
+  const { dosTime, dosDate } = zipDosDateTime(new Date());
   Object.entries(files).forEach(([path, content]) => {
     const nameBytes = encoder.encode(path);
     const data = typeof content === "string" ? encoder.encode(content) : content;
@@ -671,8 +721,8 @@ function zipStore(files) {
     localView.setUint16(4, 20, true);
     localView.setUint16(6, 0x0800, true);
     localView.setUint16(8, 0, true);
-    localView.setUint16(10, 0, true);
-    localView.setUint16(12, 0, true);
+    localView.setUint16(10, dosTime, true);
+    localView.setUint16(12, dosDate, true);
     localView.setUint32(14, crc, true);
     localView.setUint32(18, data.length, true);
     localView.setUint32(22, data.length, true);
@@ -687,8 +737,8 @@ function zipStore(files) {
     centralView.setUint16(6, 20, true);
     centralView.setUint16(8, 0x0800, true);
     centralView.setUint16(10, 0, true);
-    centralView.setUint16(12, 0, true);
-    centralView.setUint16(14, 0, true);
+    centralView.setUint16(12, dosTime, true);
+    centralView.setUint16(14, dosDate, true);
     centralView.setUint32(16, crc, true);
     centralView.setUint32(20, data.length, true);
     centralView.setUint32(24, data.length, true);
@@ -714,6 +764,13 @@ function zipStore(files) {
     cursor += part.length;
   });
   return output;
+}
+
+function zipDosDateTime(date) {
+  const year = Math.max(1980, date.getFullYear());
+  const dosTime = (date.getHours() << 11) | (date.getMinutes() << 5) | Math.floor(date.getSeconds() / 2);
+  const dosDate = ((year - 1980) << 9) | ((date.getMonth() + 1) << 5) | date.getDate();
+  return { dosTime, dosDate };
 }
 
 function bindEvents() {
