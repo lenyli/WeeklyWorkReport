@@ -17,16 +17,14 @@
       </div>
       <div id="accountBar" class="account-bar hidden">
         <strong id="accountName"></strong>
-        <button id="logoutBtn" class="ghost" type="button">退出换人</button>
+        <button id="logoutBtn" class="ghost" type="button">退出</button>
       </div>
     </header>
 
     <main>
       <section id="loginPanel" class="panel" aria-labelledby="loginTitle">
         <div class="section-head">
-          <div>
-            <h2 id="loginTitle">进入周报</h2>
-          </div>
+          <h2 id="loginTitle">进入周报</h2>
         </div>
         <form id="loginForm" class="login-row">
           <label>
@@ -35,18 +33,14 @@
           </label>
           <button type="submit">进入</button>
         </form>
+        <p class="status">填入名字即可。</p>
         <p id="loginStatus" class="status" aria-live="polite"></p>
       </section>
 
       <section id="reportPanel" class="panel hidden" aria-labelledby="reportTitle">
         <div class="section-head">
-          <div>
-            <h2 id="reportTitle">我的周报</h2>
-          </div>
-          <div class="action-group">
-            <button id="shareReportBtn" type="button">分享周报</button>
-            <button id="downloadBackupBtn" class="secondary" type="button">下载个人 Excel</button>
-          </div>
+          <h2 id="reportTitle">我的周报</h2>
+          <button id="memberHelpBtn" class="secondary" type="button">使用说明</button>
         </div>
 
         <div class="toolbar">
@@ -55,18 +49,20 @@
             <input id="reportWeekStart" type="date" />
           </label>
           <button id="saveDraftBtn" class="secondary" type="button">保存草稿</button>
-          <button id="submitBtn" type="button">提交</button>
+          <button id="submitBtn" type="button">清空</button>
         </div>
         <p id="reportStatus" class="status" aria-live="polite"></p>
         <div id="reportTableWrap" class="table-wrap"></div>
+        <div class="bottom-actions">
+          <button id="shareReportBtn" type="button">分享周报</button>
+          <button id="downloadBackupBtn" class="secondary" type="button">下载个人 Excel</button>
+        </div>
       </section>
 
       <section id="collectorPanel" class="panel hidden" aria-labelledby="collectorTitle">
         <div class="section-head">
-          <div>
-            <h2 id="collectorTitle">收集汇总</h2>
-          </div>
-          <button id="refreshCollectorBtn" class="secondary" type="button">刷新</button>
+          <h2 id="collectorTitle">收集汇总</h2>
+          <button id="leaderHelpBtn" class="secondary" type="button">使用说明</button>
         </div>
 
         <div class="toolbar">
@@ -101,44 +97,17 @@
           </section>
         </div>
       </section>
-
-      <section id="rootPanel" class="panel hidden" aria-labelledby="rootTitle">
-        <div class="section-head">
-          <div>
-            <h2 id="rootTitle">最高权限</h2>
-          </div>
-          <button id="refreshRootBtn" class="secondary" type="button">刷新</button>
-        </div>
-
-        <div class="toolbar">
-          <label>
-            查看周一日期
-            <input id="rootWeekStart" type="date" />
-          </label>
-          <button id="rootExportExcelBtn" type="button">导出本周汇总 Excel</button>
-          <label class="file-picker">
-            上传成员 Excel
-            <input id="rootReportFilesInput" type="file" accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" multiple />
-          </label>
-        </div>
-
-        <div class="root-grid">
-          <section class="subpanel" aria-labelledby="rootSummaryTitle">
-            <h3 id="rootSummaryTitle">汇总预览</h3>
-            <div id="rootSummary" class="status-block"></div>
-          </section>
-          <section class="subpanel" aria-labelledby="loginTimesTitle">
-            <h3 id="loginTimesTitle">最后登录时间</h3>
-            <div id="loginTimes" class="list"></div>
-          </section>
-        </div>
-
-        <section class="subpanel reports-panel" aria-labelledby="allReportsTitle">
-          <h3 id="allReportsTitle">全部报告</h3>
-          <div id="allReports" class="reports-list"></div>
-        </section>
-      </section>
     </main>
+
+    <dialog id="helpDialog" class="help-dialog">
+      <form method="dialog">
+        <div class="dialog-head">
+          <h3 id="helpTitle">使用说明</h3>
+          <button class="ghost" value="close" type="submit">关闭</button>
+        </div>
+        <div id="helpBody" class="help-body"></div>
+      </form>
+    </dialog>
 
     <template id="rowTemplate">
       <tr>

@@ -1,5 +1,4 @@
 const LEADER_NAME = "周南";
-const ROOT_NAME = "groves";
 const STORAGE_KEY = "weekly-report-pwa-client";
 
 const REPORT_COLUMNS = [
@@ -16,8 +15,6 @@ const $ = (id) => document.getElementById(id);
 const clientState = loadClientState();
 let currentUser = null;
 let collectorData = null;
-let rootData = null;
-let lastSubmission = null;
 
 function loadClientState() {
   try {
@@ -43,7 +40,6 @@ function normalizeName(name) {
 }
 
 function getRole(name) {
-  if (name.toLowerCase() === ROOT_NAME) return "root";
   if (name === LEADER_NAME) return "collector";
   return "member";
 }
@@ -100,14 +96,50 @@ function sortNames(names) {
   );
 }
 
+const HELP_CONTENT = {
+  member: [
+    ["周一日期", "打开后会自动切到本周周一，也可以手动选择要填写的周。"],
+    ["保存草稿", "把当前填写内容保存在这台设备的浏览器里，下次打开会自动带出。"],
+    ["清空", "只清空当前表格，并把空草稿保存在本机。不会生成或提交 Excel。"],
+    ["分享周报", "手机端会弹出系统分享面板，可以选择微信、邮件或其他应用发送。"],
+    ["下载个人 Excel", "把当前填写内容下载成个人周报 Excel。"],
+  ],
+  leader: [
+    ["汇总周一日期", "打开后会自动切到本周周一，可以手动切换要汇总的周。"],
+    ["上传成员 Excel", "选择成员发来的个人周报 Excel，页面会在本地解析并加入汇总。"],
+    ["成员名单", "名单会根据已上传文件自动增加，也可以手动添加或删除。"],
+    ["提交情况", "按照当前名单显示已提交和未提交人员。"],
+    ["导出 Excel", "生成汇总 Excel，每个人一个 sheet，并按姓名首字母排序。"],
+  ],
+};
+
+function openHelp(kind) {
+  const dialog = $("helpDialog");
+  const content = HELP_CONTENT[kind] || HELP_CONTENT.member;
+  $("helpTitle").textContent = "使用说明";
+  $("helpBody").replaceChildren(
+    ...content.map(([title, text]) => {
+      const item = document.createElement("section");
+      item.innerHTML = `<h4></h4><p></p>`;
+      item.querySelector("h4").textContent = title;
+      item.querySelector("p").textContent = text;
+      return item;
+    }),
+  );
+  if (dialog?.showModal) {
+    dialog.showModal();
+    return;
+  }
+  alert(content.map(([title, text]) => `${title}：${text}`).join("\n\n"));
+}
+
 function setPanels() {
   const loggedIn = Boolean(currentUser);
   const role = currentUser?.role;
   $("loginPanel").classList.toggle("hidden", loggedIn);
   $("accountBar").classList.toggle("hidden", !loggedIn);
-  $("reportPanel").classList.toggle("hidden", !loggedIn || role === "root");
+  $("reportPanel").classList.toggle("hidden", !loggedIn);
   $("collectorPanel").classList.toggle("hidden", role !== "collector");
-  $("rootPanel").classList.toggle("hidden", role !== "root");
   if (loggedIn) $("accountName").textContent = currentUser.name;
 }
 
@@ -127,19 +159,15 @@ async function login(name) {
 }
 
 async function afterLogin() {
-  if (currentUser.role !== "root") {
-    if (!$("reportWeekStart").value) $("reportWeekStart").value = todayMonday();
-    renderReportTable();
-    loadDraftIntoForm();
-  }
+  if (!$("reportWeekStart").value) $("reportWeekStart").value = todayMonday();
+  renderReportTable();
+  loadDraftIntoForm();
   if (currentUser.role === "collector") await refreshCollector();
-  if (currentUser.role === "root") await refreshRoot();
 }
 
 function logout() {
   currentUser = null;
   collectorData = null;
-  rootData = null;
   clientState.name = "";
   saveClientState();
   $("nameInput").value = "";
@@ -232,23 +260,31 @@ function createSubmission() {
   };
 }
 
-async function submitReport() {
-  const submission = createSubmission();
-  lastSubmission = submission;
-  clientState.submissions[submissionKey(submission.weekStart, submission.memberName)] = submission;
-  $("reportStatus").textContent = "已保存到本机。请下载或分享个人 Excel。";
+function clearReportForm() {
+  $("reportTableWrap").querySelectorAll("textarea").forEach((textarea) => {
+    textarea.value = "";
+  });
+  saveDraft({ silent: true });
+}
+
+function getExportSubmission() {
+  return createSubmission();
+}
+
+function clearCurrentReport() {
+  clearReportForm();
+  $("reportStatus").textContent = "已清空当前填写内容。";
   saveClientState();
-  if (currentUser.role === "collector") await refreshCollector();
 }
 
 function downloadBackup() {
-  const submission = lastSubmission || createSubmission();
+  const submission = getExportSubmission();
   const workbook = buildPersonalWorkbookData(submission);
   downloadBlob(createXlsx(workbook), `周报_${submission.weekStart}_${submission.memberName}.xlsx`);
 }
 
 async function shareReport() {
-  const submission = lastSubmission || createSubmission();
+  const submission = getExportSubmission();
   const workbook = buildPersonalWorkbookData(submission);
   const fileName = `周报_${submission.weekStart}_${submission.memberName}.xlsx`;
   const blob = createXlsx(workbook);
@@ -398,15 +434,9 @@ async function importReportFiles(fileList) {
     }
   }
   saveClientState();
-  if (currentUser?.role === "root") {
-    await refreshRoot();
-    $("rootSummary").prepend(statusLine(`已上传 ${imported} 个成员 Excel，失败 ${failed} 个。`, "summary-line"));
-    $("rootReportFilesInput").value = "";
-  } else {
-    await refreshCollector();
-    $("collectorStatus").prepend(statusLine(`已上传 ${imported} 个成员 Excel，失败 ${failed} 个。`, "summary-line"));
-    $("reportFilesInput").value = "";
-  }
+  await refreshCollector();
+  $("collectorStatus").prepend(statusLine(`已上传 ${imported} 个成员 Excel，失败 ${failed} 个。`, "summary-line"));
+  $("reportFilesInput").value = "";
 }
 
 async function parsePersonalWorkbook(file) {
@@ -518,75 +548,6 @@ function exportCollectorWorkbook() {
   const weekStart = $("collectorWeekStart").value;
   const workbook = buildWorkbookData(weekStart, collectorData.roster, collectorData.reports || {});
   downloadBlob(createXlsx(workbook), `周报汇总_${weekStart}.xlsx`);
-}
-
-async function refreshRoot() {
-  const weekStart = $("rootWeekStart").value || todayMonday();
-  $("rootWeekStart").value = weekStart;
-  const localData = getLocalCollectorData(weekStart);
-  rootData = {
-    roster: sortNames(localData.roster),
-    reports: localData.reports,
-    users: sortNames(clientState.uploadedRoster || []).map((name) => ({ name, lastLoginAt: "" })),
-    allReports: Object.values(clientState.uploadedReports || {}),
-  };
-  renderRoot();
-}
-
-function renderRoot() {
-  if (!rootData) return;
-  const weekStart = $("rootWeekStart").value;
-  renderStatusBlock($("rootSummary"), sortNames(rootData.roster), rootData.reports || {}, weekStart);
-  renderLoginTimes();
-  renderAllReports();
-}
-
-function renderLoginTimes() {
-  const users = [...(rootData.users || [])].sort((a, b) => {
-    const at = a.lastLoginAt || "";
-    const bt = b.lastLoginAt || "";
-    return bt.localeCompare(at);
-  });
-  $("loginTimes").replaceChildren(
-    ...users.map((user) => {
-      const row = document.createElement("div");
-      row.className = "person-row";
-      row.innerHTML = `<strong></strong><span></span>`;
-      row.querySelector("strong").textContent = user.name;
-      row.querySelector("span").textContent = formatDateTime(user.lastLoginAt);
-      return row;
-    }),
-  );
-}
-
-function renderAllReports() {
-  const reports = [...(rootData.allReports || [])].sort((a, b) => {
-    const weekCompare = b.weekStart.localeCompare(a.weekStart);
-    if (weekCompare) return weekCompare;
-    return nameCollator.compare(a.memberName, b.memberName);
-  });
-  $("allReports").replaceChildren(
-    ...reports.map((report) => {
-      const card = document.createElement("article");
-      card.className = "report-card";
-      const rows = report.rows
-        .map((row) => {
-          const f = row.fields || {};
-          return `<tr><th>${escapeHtml(`${row.date}\n${row.weekday}`)}</th><td>${escapeHtml(f.dev || "")}</td><td>${escapeHtml(f.site || "")}</td><td>${escapeHtml(f.presales || "")}</td><td>${escapeHtml(f.other || "")}</td></tr>`;
-        })
-        .join("");
-      card.innerHTML = `<header><strong>${escapeHtml(report.memberName)}</strong><span>${escapeHtml(report.weekStart)} 至 ${escapeHtml(report.weekEnd)}｜${escapeHtml(formatDateTime(report.submittedAt))}</span></header>
-        <div class="table-wrap"><table><thead><tr>${REPORT_COLUMNS.map((col) => `<th>${escapeHtml(col.label)}</th>`).join("")}</tr></thead><tbody>${rows}</tbody></table></div>`;
-      return card;
-    }),
-  );
-}
-
-function exportRootWorkbook() {
-  if (!rootData) return;
-  const weekStart = $("rootWeekStart").value;
-  const workbook = buildWorkbookData(weekStart, rootData.roster, rootData.reports || {});
-  downloadBlob(createXlsx(workbook), `groves_周报汇总_${weekStart}.xlsx`);
 }
 
 function buildPersonalWorkbookData(report) {
@@ -705,7 +666,7 @@ function escapeHtml(value) {
 function createXlsx(workbook) {
   const files = {};
   files["[Content_Types].xml"] = contentTypesXml(workbook.sheets.length);
-  files["_rels/.rels"] = rootRelsXml();
+  files["_rels/.rels"] = packageRelsXml();
   files["docProps/core.xml"] = coreXml();
   files["docProps/app.xml"] = appXml(workbook.sheets.length);
   files["xl/workbook.xml"] = workbookXml(workbook.sheets);
@@ -736,7 +697,7 @@ ${sheets}
 </Types>`);
 }
 
-function rootRelsXml() {
+function packageRelsXml() {
   return xmlDecl(`<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
 <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/>
 <Relationship Id="rId2" Type="http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties" Target="docProps/core.xml"/>
@@ -942,33 +903,29 @@ function bindEvents() {
     }
   });
   $("logoutBtn").addEventListener("click", logout);
+  $("memberHelpBtn").addEventListener("click", () => openHelp("member"));
+  $("leaderHelpBtn").addEventListener("click", () => openHelp("leader"));
   $("reportWeekStart").addEventListener("change", () => {
     renderReportTable();
     loadDraftIntoForm();
   });
   $("collectorWeekStart").addEventListener("change", refreshCollector);
-  $("rootWeekStart").addEventListener("change", refreshRoot);
   $("saveDraftBtn").addEventListener("click", () => saveDraft());
-  $("submitBtn").addEventListener("click", () => submitReport().catch((error) => ($("reportStatus").textContent = error.message)));
+  $("submitBtn").addEventListener("click", clearCurrentReport);
   $("shareReportBtn").addEventListener("click", () => shareReport().catch((error) => ($("reportStatus").textContent = error.message)));
   $("downloadBackupBtn").addEventListener("click", downloadBackup);
   $("reportFilesInput").addEventListener("change", (event) => importReportFiles(event.target.files));
-  $("rootReportFilesInput").addEventListener("change", (event) => importReportFiles(event.target.files));
-  $("refreshCollectorBtn").addEventListener("click", refreshCollector);
   $("exportExcelBtn").addEventListener("click", exportCollectorWorkbook);
   $("addMemberForm").addEventListener("submit", async (event) => {
     event.preventDefault();
     await addRosterMember($("memberNameToAdd").value);
     $("memberNameToAdd").value = "";
   });
-  $("refreshRootBtn").addEventListener("click", refreshRoot);
-  $("rootExportExcelBtn").addEventListener("click", exportRootWorkbook);
 }
 
 async function boot() {
   $("reportWeekStart").value = todayMonday();
   $("collectorWeekStart").value = todayMonday();
-  $("rootWeekStart").value = todayMonday();
   bindEvents();
   updateShareAvailability();
   setPanels();
