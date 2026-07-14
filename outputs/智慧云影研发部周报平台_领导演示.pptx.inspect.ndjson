@@ -1,0 +1,103 @@
+{"kind":"deck","id":"pr/q5hilz","name":"Deck"}
+{"kind":"layout","layoutId":"d666e8fa-6a22-4a8f-8714-f8ba580446c5","name":"Master","type":"master"}
+{"kind":"layout","layoutId":"5b60cb29-a532-413b-a41f-1d1902e3c630","name":"Title Slide","type":"title"}
+{"kind":"slide","id":"sl/hiwq5j","slide":1,"title":"智慧云影研发部｜工作周报平台","textShapes":4}
+{"kind":"textbox","id":"sh/utkju10b","slide":1,"name":"cover-kicker","text":"智慧云影研发部｜工作周报平台","textPreview":"智慧云影研发部｜工作周报平台","textChars":14,"textLines":1,"bbox":[42,42,620,54]}
+{"kind":"textbox","id":"sh/hgv25gz2","slide":1,"name":"cover-date","text":"领导演示版 · 2026.07","textPreview":"领导演示版 · 2026.07","textChars":15,"textLines":1,"bbox":[835,42,403,54]}
+{"kind":"shape","id":"sh/gvm1wbih","slide":1,"name":"cover-accent","bbox":[42,238,104,8]}
+{"kind":"textbox","id":"sh/7qtkz6hk","slide":1,"name":"cover-title","text":"把周报收集\n变成可追踪的闭环","textPreview":"把周报收集 | 变成可追踪的闭环","textChars":14,"textLines":2,"bbox":[42,274,1050,286]}
+{"kind":"textbox","id":"sh/6pkjq10f","slide":1,"name":"cover-subtitle","text":"核心流程演示与云端试点建议","textPreview":"核心流程演示与云端试点建议","textChars":13,"textLines":1,"bbox":[42,603,640,42]}
+{"kind":"notes","id":"nt/hiwq5j","slide":1,"text":""}
+{"kind":"slide","id":"sl/qmuaoy","slide":2,"title":"演示版已跑通核心闭环，下一步是验证云端协同","textShapes":9}
+{"kind":"textbox","id":"sh/ul4r2hcn","slide":2,"name":"slide-title","text":"演示版已跑通核心闭环，下一步是验证云端协同","textPreview":"演示版已跑通核心闭环，下一步是验证云端协同","textChars":21,"textLines":1,"bbox":[42,34,1196,102]}
+{"kind":"textbox","id":"sh/hofadcve","slide":2,"name":"conclusion","text":"当前版本已经证明产品流程可用；正式推广前，需要把本地数据层升级为共享云端服务，并在小范围内验证稳定性与管理收益。","textPreview":"当前版本已经证明产品流程可用；正式推广前，需要把本地数据层升级为共享云端服务，并在小范围内验证稳定性与管理收益。","textChars":56,"textLines":1,"bbox":[42,130,1160,92]}
+{"kind":"textbox","id":"sh/gn6947ut","slide":2,"name":"slide-number-2","text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[1184,660,54,24]}
+{"kind":"shape","id":"sh/3qxsfmd4","slide":2,"name":"metric-panel-1","bbox":[42,296,375,318]}
+{"kind":"shape","id":"sh/ipor6hcz","slide":2,"name":"metric-accent-1","bbox":[42,296,375,10]}
+{"kind":"textbox","id":"sh/5sfahwva","slide":2,"name":"metric-stat-1","text":"1 个闭环","textPreview":"1 个闭环","textChars":5,"textLines":1,"bbox":[72,350,315,112]}
+{"kind":"textbox","id":"sh/4r6t8rup","slide":2,"name":"metric-body-1","text":"填写、提交、追踪、导出\n已经端到端跑通","textPreview":"填写、提交、追踪、导出 | 已经端到端跑通","textChars":19,"textLines":2,"bbox":[72,494,315,92]}
+{"kind":"shape","id":"sh/juds32d0","slide":2,"name":"metric-panel-2","bbox":[453,296,375,318]}
+{"kind":"shape","id":"sh/ytkruxcf","slide":2,"name":"metric-accent-2","bbox":[453,296,375,10]}
+{"kind":"textbox","id":"sh/8vy5wfi5","slide":2,"name":"metric-stat-2","text":"2 类角色","textPreview":"2 类角色","textChars":5,"textLines":1,"bbox":[483,350,315,112]}
+{"kind":"textbox","id":"sh/tw765kzq","slide":2,"name":"metric-body-2","text":"成员与负责人分工明确\n操作路径相互衔接","textPreview":"成员与负责人分工明确 | 操作路径相互衔接","textChars":19,"textLines":2,"bbox":[483,494,315,92]}
+{"kind":"shape","id":"sh/6tgnu50z","slide":2,"name":"metric-panel-3","bbox":[864,296,375,318]}
+{"kind":"shape","id":"sh/7upo3ahk","slide":2,"name":"metric-accent-3","bbox":[864,296,375,10]}
+{"kind":"textbox","id":"sh/gzi50zi1","slide":2,"name":"metric-stat-3","text":"4 项能力","textPreview":"4 项能力","textChars":5,"textLines":1,"bbox":[894,350,315,112]}
+{"kind":"textbox","id":"sh/h0r694zm","slide":2,"name":"metric-body-3","text":"草稿、覆盖提交、状态看板\n与 Excel 汇总已具备","textPreview":"草稿、覆盖提交、状态看板 | 与 Excel 汇总已具备","textChars":26,"textLines":2,"bbox":[894,494,315,92]}
+{"kind":"notes","id":"nt/qmuaoy","slide":2,"text":""}
+{"kind":"slide","id":"sl/5ge46v","slide":3,"title":"一次周报从填写到汇总，只需经过三步","textShapes":11}
+{"kind":"textbox","id":"sh/pgralwne","slide":3,"name":"slide-title","text":"一次周报从填写到汇总，只需经过三步","textPreview":"一次周报从填写到汇总，只需经过三步","textChars":17,"textLines":1,"bbox":[42,34,1196,102]}
+{"kind":"shape","id":"sh/2t0rqho3","slide":3,"name":"process-line","bbox":[42,337,1128,0.03]}
+{"kind":"textbox","id":"sh/3u9sjm58","slide":3,"name":"slide-number-3","text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[1184,660,54,24]}
+{"kind":"textbox","id":"sh/gri9o76x","slide":3,"name":"step-label-1","text":"01  成员端","textPreview":"01  成员端","textChars":7,"textLines":1,"bbox":[42,278,250,34]}
+{"kind":"shape","id":"sh/hsrahcni","slide":3,"name":"step-dot-1","bbox":[42,329,17,17]}
+{"kind":"textbox","id":"sh/upgrmhor","slide":3,"name":"step-title-1","text":"按周填写并提交","textPreview":"按周填写并提交","textChars":7,"textLines":1,"bbox":[42,388,320,48]}
+{"kind":"textbox","id":"sh/fqp8fm5c","slide":3,"name":"step-body-1","text":"自动生成周一至周五\n草稿实时保存在本机\n同周重复提交自动覆盖","textPreview":"自动生成周一至周五 | 草稿实时保存在本机 | 同周重复提交自动覆盖","textChars":30,"textLines":3,"bbox":[42,452,320,118]}
+{"kind":"textbox","id":"sh/0n290bm1","slide":3,"name":"step-label-2","text":"02  负责人端","textPreview":"02  负责人端","textChars":8,"textLines":1,"bbox":[451,278,250,34]}
+{"kind":"shape","id":"sh/1obatgnm","slide":3,"name":"step-dot-2","bbox":[451,329,17,17]}
+{"kind":"textbox","id":"sh/90zyd4r6","slide":3,"name":"step-title-2","text":"查看名单与状态","textPreview":"查看名单与状态","textChars":7,"textLines":1,"bbox":[451,388,320,48]}
+{"kind":"textbox","id":"sh/ozqx4zal","slide":3,"name":"step-body-2","text":"识别已提交和未提交成员\n保留历史周报\n兼容旧版 Excel 补录","textPreview":"识别已提交和未提交成员 | 保留历史周报 | 兼容旧版 Excel 补录","textChars":32,"textLines":3,"bbox":[451,452,320,118]}
+{"kind":"textbox","id":"sh/nyhgbu9g","slide":3,"name":"step-label-3","text":"03  标准输出","textPreview":"03  标准输出","textChars":8,"textLines":1,"bbox":[862,278,250,34]}
+{"kind":"shape","id":"sh/mdof2psv","slide":3,"name":"step-dot-3","bbox":[862,329,17,17]}
+{"kind":"textbox","id":"sh/1cfy9kra","slide":3,"name":"step-title-3","text":"一键导出汇总","textPreview":"一键导出汇总","textChars":6,"textLines":1,"bbox":[862,388,320,48]}
+{"kind":"textbox","id":"sh/0b6x0fap","slide":3,"name":"step-body-3","text":"每人一个 sheet\n按姓名首字母排序\n形成统一归档文件","textPreview":"每人一个 sheet | 按姓名首字母排序 | 形成统一归档文件","textChars":28,"textLines":3,"bbox":[862,452,320,118]}
+{"kind":"notes","id":"nt/5ge46v","slide":3,"text":""}
+{"kind":"slide","id":"sl/8urley","slide":4,"title":"成员填报：统一口径、自动留痕，减少重复整理","textShapes":5}
+{"kind":"textbox","id":"sh/7a9sve5s","slide":4,"name":"slide-title","text":"成员填报：统一口径、自动留痕，减少重复整理","textPreview":"成员填报：统一口径、自动留痕，减少重复整理","textChars":21,"textLines":1,"bbox":[42,34,1196,102]}
+{"kind":"textbox","id":"sh/sbi9ojmx","slide":4,"name":"member-lead","text":"成员打开页面即可按周填写，输入内容自动保存为草稿。","textPreview":"成员打开页面即可按周填写，输入内容自动保存为草稿。","textChars":25,"textLines":1,"bbox":[42,161,390,78]}
+{"kind":"textbox","id":"sh/tcraxoni","slide":4,"name":"member-categories","text":"四类工作统一呈现\n\n开发 / 测试 / 需求\n场地支持\n售前支持\n其他事项","textPreview":"四类工作统一呈现 |  | 开发 / 测试 / 需求 | 场地支持 | 售前支持 | 其他事项","textChars":37,"textLines":6,"bbox":[42,275,390,220]}
+{"kind":"shape","id":"sh/ud0bqt43","slide":4,"name":"member-callout","bbox":[42,525,394,92]}
+{"kind":"textbox","id":"sh/fe9szy5o","slide":4,"name":"member-value","text":"演示价值\n成员无需反复维护模板版本","textPreview":"演示价值 | 成员无需反复维护模板版本","textChars":17,"textLines":2,"bbox":[66,545,346,52]}
+{"kind":"shape","id":"sh/gfits3m9","slide":4,"name":"member-image-backing","bbox":[478,150,760,470]}
+{"kind":"textbox","id":"sh/2h0bud4f","slide":4,"name":"slide-number-4","text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[1184,660,54,24]}
+{"kind":"image","id":"im/s7ixsvup","slide":4,"name":"member-screenshot","geometry":"roundRect","alt":"成员端周报填写页面","bbox":[494,166,728,438]}
+{"kind":"notes","id":"nt/8urley","slide":4,"text":""}
+{"kind":"slide","id":"sl/vifq7x","slide":5,"title":"负责人汇总：提交状态一眼可见，Excel 一键输出","textShapes":5}
+{"kind":"textbox","id":"sh/b25gr6ds","slide":5,"name":"slide-title","text":"负责人汇总：提交状态一眼可见，Excel 一键输出","textPreview":"负责人汇总：提交状态一眼可见，Excel 一键输出","textChars":25,"textLines":1,"bbox":[42,34,1196,102]}
+{"kind":"shape","id":"sh/w3yhkbex","slide":5,"name":"leader-image-backing","bbox":[42,158,760,470]}
+{"kind":"textbox","id":"sh/mxwze1wv","slide":5,"name":"leader-side-title","text":"管理动作集中到一个页面","textPreview":"管理动作集中到一个页面","textChars":11,"textLines":1,"bbox":[846,171,350,56]}
+{"kind":"textbox","id":"sh/ny5gnmdg","slide":5,"name":"leader-actions","text":"① 查看当前成员名单\n\n② 识别已提交 / 未提交\n\n③ 兼容上传历史 Excel\n\n④ 导出标准汇总文件","textPreview":"① 查看当前成员名单 |  | ② 识别已提交 / 未提交 |  | ③ 兼容上传历史 Excel |  | ④ 导出标准汇总文件","textChars":53,"textLines":7,"bbox":[846,258,350,252]}
+{"kind":"shape","id":"sh/ozehgre1","slide":5,"name":"leader-callout","bbox":[846,529,350,90]}
+{"kind":"textbox","id":"sh/90nypwvm","slide":5,"name":"leader-result","text":"结果\n催收依据更清楚，归档口径更一致","textPreview":"结果 | 催收依据更清楚，归档口径更一致","textChars":18,"textLines":2,"bbox":[870,548,302,52]}
+{"kind":"textbox","id":"sh/etcfahwz","slide":5,"name":"slide-number-5","text":"05","textPreview":"05","textChars":2,"textLines":1,"bbox":[1184,660,54,24]}
+{"kind":"image","id":"im/szil8v2d","slide":5,"name":"leader-screenshot","geometry":"roundRect","alt":"负责人端收集汇总与提交状态页面","bbox":[58,174,728,438]}
+{"kind":"notes","id":"nt/vifq7x","slide":5,"text":""}
+{"kind":"slide","id":"sl/6biyhl","slide":6,"title":"当前边界清晰，正式上线所需改造已经可拆解","textShapes":7}
+{"kind":"textbox","id":"sh/sjqh4j2t","slide":6,"name":"slide-title","text":"当前边界清晰，正式上线所需改造已经可拆解","textPreview":"当前边界清晰，正式上线所需改造已经可拆解","textChars":20,"textLines":1,"bbox":[42,34,1196,102]}
+{"kind":"textbox","id":"sh/rih0bel8","slide":6,"name":"validated-title","text":"已验证｜产品流程","textPreview":"已验证｜产品流程","textChars":8,"textLines":1,"bbox":[42,174,530,48]}
+{"kind":"textbox","id":"sh/6h8z29kn","slide":6,"name":"validated-list","text":"登录与角色区分\n周报草稿与覆盖提交\n负责人名单与提交状态\n个人及汇总 Excel 导出\nPWA 安装与多端打开","textPreview":"登录与角色区分 | 周报草稿与覆盖提交 | 负责人名单与提交状态 | 个人及汇总 Excel 导出 | PWA 安装与多端打开","textChars":55,"textLines":5,"bbox":[42,251,500,268]}
+{"kind":"shape","id":"sh/5gfi9432","slide":6,"name":"boundary-divider","bbox":[628,168,0.03,440]}
+{"kind":"textbox","id":"sh/4v6h0z2x","slide":6,"name":"production-title","text":"待补齐｜生产能力","textPreview":"待补齐｜生产能力","textChars":8,"textLines":1,"bbox":[688,174,510,48]}
+{"kind":"textbox","id":"sh/jux07elc","slide":6,"name":"production-list","text":"共享云端 API 与数据库\n跨设备数据同步和冲突处理\n服务端身份认证与密码安全\n访问日志、备份与恢复\n权限和数据托管边界","textPreview":"共享云端 API 与数据库 | 跨设备数据同步和冲突处理 | 服务端身份认证与密码安全 | 访问日志、备份与恢复 | 权限和数据托管边界","textChars":60,"textLines":5,"bbox":[688,251,500,268]}
+{"kind":"shape","id":"sh/itozy9kr","slide":6,"name":"boundary-note","bbox":[42,551,1156,72]}
+{"kind":"textbox","id":"sh/hsfi5436","slide":6,"name":"boundary-conclusion","text":"结论：无需重做前端流程，下一阶段聚焦数据层、认证和运行保障。","textPreview":"结论：无需重做前端流程，下一阶段聚焦数据层、认证和运行保障。","textChars":30,"textLines":1,"bbox":[70,571,1100,34]}
+{"kind":"textbox","id":"sh/wr6hwz2l","slide":6,"name":"slide-number-6","text":"06","textPreview":"06","textChars":2,"textLines":1,"bbox":[1184,660,54,24]}
+{"kind":"notes","id":"nt/6biyhl","slide":6,"text":""}
+{"kind":"slide","id":"sl/6x9i7o","slide":7,"title":"建议用五步小范围试点，把技术风险转成可验收结果","textShapes":7}
+{"kind":"textbox","id":"sh/k7itcfi9","slide":7,"name":"slide-title","text":"建议用五步小范围试点，把技术风险转成可验收结果","textPreview":"建议用五步小范围试点，把技术风险转成可验收结果","textChars":23,"textLines":1,"bbox":[42,34,1196,102]}
+{"kind":"textbox","id":"sh/j69s3a1o","slide":7,"name":"slide-number-7","text":"07","textPreview":"07","textChars":2,"textLines":1,"bbox":[1184,660,54,24]}
+{"kind":"shape","id":"sh/x47a10ji","slide":7,"name":"roadmap-col-1","bbox":[42,209,239,391]}
+{"kind":"shape","id":"sh/w3yt8vix","slide":7,"name":"roadmap-col-2","bbox":[281,209,239,391]}
+{"kind":"shape","id":"sh/v2pszq1c","slide":7,"name":"roadmap-col-3","bbox":[520,209,239,391]}
+{"kind":"shape","id":"sh/a1gb6lkr","slide":7,"name":"roadmap-col-4","bbox":[759,209,239,391]}
+{"kind":"shape","id":"sh/h0budkjm","slide":7,"name":"roadmap-col-5","bbox":[998,209,239,391]}
+{"kind":"shape","id":"sh/gz2tkzi1","slide":7,"name":"roadmap-bar-1","bbox":[60,244,400,48]}
+{"kind":"textbox","id":"sh/axsv6xsz","slide":7,"name":"roadmap-label-1","text":"试点人员与数据范围","textPreview":"试点人员与数据范围","textChars":9,"textLines":1,"bbox":[78,254,364,30]}
+{"kind":"shape","id":"sh/vy1cz2t4","slide":7,"name":"roadmap-bar-2","bbox":[288,316,430,48]}
+{"kind":"textbox","id":"sh/wzad87ap","slide":7,"name":"roadmap-label-2","text":"API、数据库与服务端认证","textPreview":"API、数据库与服务端认证","textChars":13,"textLines":1,"bbox":[306,326,394,30]}
+{"kind":"shape","id":"sh/x0ju1cba","slide":7,"name":"roadmap-bar-3","bbox":[510,388,450,48]}
+{"kind":"textbox","id":"sh/m98b2xsn","slide":7,"name":"roadmap-label-3","text":"同步、权限、备份与恢复验证","textPreview":"同步、权限、备份与恢复验证","textChars":13,"textLines":1,"bbox":[528,398,414,30]}
+{"kind":"shape","id":"sh/nahcv2t8","slide":7,"name":"roadmap-bar-4","bbox":[742,460,454,48]}
+{"kind":"textbox","id":"sh/obqd47at","slide":7,"name":"roadmap-label-4","text":"真实周报运行与问题收敛","textPreview":"真实周报运行与问题收敛","textChars":11,"textLines":1,"bbox":[760,470,418,30]}
+{"kind":"shape","id":"sh/9wzuxcbe","slide":7,"name":"roadmap-bar-5","bbox":[978,532,218,48]}
+{"kind":"textbox","id":"sh/65cvehsr","slide":7,"name":"roadmap-label-5","text":"按指标评估是否扩围","textPreview":"按指标评估是否扩围","textChars":9,"textLines":1,"bbox":[996,542,182,30]}
+{"kind":"table","id":"tb/vi5kfm9w","slide":7,"name":"roadmap-header","rows":1,"cols":5,"preview":"确认范围 | 云端改造 | 内部验证 | 小范围试点 | 复盘决策","bbox":[42,151,1195,58]}
+{"kind":"notes","id":"nt/6x9i7o","slide":7,"text":""}
+{"kind":"slide","id":"sl/m1xkaf","slide":8,"title":"决策建议","textShapes":5}
+{"kind":"textbox","id":"sh/ex036xwb","slide":8,"name":"decision-kicker","text":"决策建议","textPreview":"决策建议","textChars":4,"textLines":1,"bbox":[42,42,260,54]}
+{"kind":"textbox","id":"sh/10b2hcfm","slide":8,"name":"decision-title","text":"批准云端\n小范围试点","textPreview":"批准云端 | 小范围试点","textChars":10,"textLines":2,"bbox":[42,188,910,250]}
+{"kind":"shape","id":"sh/0z2l87e1","slide":8,"name":"decision-rule","bbox":[42,490,1156,2]}
+{"kind":"textbox","id":"sh/ra9kb2xk","slide":8,"name":"decision-label","text":"需要确认三件事","textPreview":"需要确认三件事","textChars":7,"textLines":1,"bbox":[42,531,300,40]}
+{"kind":"textbox","id":"sh/q9032xwz","slide":8,"name":"decision-asks","text":"① 试点人员与周期    ② 数据托管与安全要求    ③ 通过 / 扩围的验收指标","textPreview":"① 试点人员与周期    ② 数据托管与安全要求    ③ 通过 / 扩围的验收指标","textChars":42,"textLines":1,"bbox":[42,585,1110,50]}
+{"kind":"textbox","id":"sh/dwr2dsfq","slide":8,"name":"slide-number-8","text":"08","textPreview":"08","textChars":2,"textLines":1,"bbox":[1184,660,54,24]}
+{"kind":"notes","id":"nt/m1xkaf","slide":8,"text":""}
