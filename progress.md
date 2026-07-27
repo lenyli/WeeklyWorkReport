@@ -2,6 +2,12 @@
 
 > 每次实质更新在此追加一条（最新在上）。同步副本见 Obsidian：`obsidian/Projects/wwr`。
 
+## 2026-07-25 · [cx] 配置项目级 Codex 子 agent（父准则规则 8）
+
+- **改了什么**：新增 `.codex/config.toml` 与 2 个项目 agent：frontend_developer（gpt-5.6-terra/medium）、offline_data_engineer（gpt-5.6-terra/high）。
+- **为什么改**：保留 PWA 前端执行职责，并新增聚焦 IndexedDB、冲突与未来云端迁移边界的只读数据 agent；两者采用均衡模型，数据设计提高推理强度。
+- **如何验证**：使用 Python `tomllib` 解析全部 TOML；确认 1 份项目配置、2 份 agent 配置均含必填字段，名称、模型和推理强度与议定清单一致。
+
 ## 2026-07-24 · [cc] 配置项目级子 agent（父准则规则 8）
 
 - 写入 `.claude/agents/`（随本项目 git，不进父同步仓）：frontend-developer(sonnet)。主对话模型 Opus 4.8。
