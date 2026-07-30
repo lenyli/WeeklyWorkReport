@@ -1,6 +1,6 @@
 # wwr（工作周报 PWA）进度记录
 
-> 每次实质更新在此追加一条（最新在上）。同步副本见 Obsidian：`obsidian/Projects/wwr`。
+> 每次实质更新在此追加一条（最新在上）。同步副本见 Obsidian：`obsidian/Projects/WWR`。
 
 ## 2026-07-25 · [cx] 配置项目级 Codex 子 agent（父准则规则 8）
 
