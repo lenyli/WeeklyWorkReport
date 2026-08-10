@@ -2,13 +2,31 @@
 
 这是一个使用浏览器本地数据库占位的 PWA 周报工具。成员可以填写、保存草稿并提交周报；leader 可以查看账号、提交情况并生成汇总 Excel。
 
+当前阶段、限制和下一步统一见 [`CURRENT_STATUS.md`](CURRENT_STATUS.md)。
+
 当前版本用于验证业务流程，账号和提交数据保存在当前浏览器的 IndexedDB 中，不同设备之间暂时不会同步。后续确定云端部署方案后，可将 `db.js` 替换为云端 API 数据层。
 
 部署到 Cloudflare Pages 后，可以在家里和公司电脑上打开同一个网址，但两台电脑仍分别使用各自的本地数据库。
 
-## 打开和安装
+## 架构与技术
 
-把项目部署到任意静态网页托管后，使用浏览器打开页面即可。
+```text
+index.html + app.js → db.js → IndexedDB
+         ↘ localStorage（草稿与兼容状态）
+         ↘ sw.js（离线缓存）→ 静态托管
+```
+
+项目是无构建步骤的原生 HTML/CSS/JavaScript PWA。`db.js` 是可替换的数据边界；当前没有服务端 API、共享数据库或真实身份认证。
+
+## 当前能力
+
+- 成员本地登录、修改六位数字密码、按周填写草稿和提交/覆盖本人周报。
+- leader 管理当前账号、查看提交状态、兼容导入旧 Excel 并导出多人汇总 Excel。
+- Service Worker 离线缓存、PWA 安装和支持环境下的系统文件分享。
+
+## 构建、打开和安装
+
+项目无构建命令。可在项目根运行 `python3 -m http.server 8000` 本地预览，或把静态文件部署到任意静态网页托管后打开。
 
 在手机或电脑支持 PWA 的浏览器中，可以选择“安装应用”或“添加到主屏幕”。安装后可像普通应用一样从桌面或主屏幕打开。
 
@@ -52,3 +70,15 @@
 ## 使用说明
 
 页面内有“使用说明”按钮，点击后会弹出每个功能的说明。
+
+## Agent 与 Skill
+
+- Agent：仅有 Claude 平台的 `frontend-developer` 遗留配置；没有 canonical 项目 Agent 或 `.ai/manifest.yaml`，不视为跨工具常驻 Agent。
+- Skill：当前没有已确认采用的项目或全局 Skill；全局 `pwa-app` 是后来从多个项目经验中提炼，不倒推为本项目既有使用记录。
+- 全局索引：`/Volumes/Leny/ProjectRecord/Agents.md`、`/Volumes/Leny/ProjectRecord/Skills.md`。
+
+## 项目规则
+
+- 开始任务先读本文件与 `CURRENT_STATUS.md`；只维护本项目根及 `/Volumes/Leny/ProjectRecord/WWR/`，不修改其他项目记录。
+- 状态变化只覆盖更新两处 `CURRENT_STATUS.md`；不新建 progress、Next、Notes、HANDOFF 或 audit 状态文档。
+- 保持离线优先与可替换 `db.js` 边界；没有明确多人需求时不擅自引入云端数据库、API 或认证。
