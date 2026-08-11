@@ -81,4 +81,5 @@ index.html + app.js → db.js → IndexedDB
 
 - 开始任务先读本文件与 `CURRENT_STATUS.md`；只维护本项目根及 `/Volumes/Leny/ProjectRecord/WWR/`，不修改其他项目记录。
 - 状态变化只覆盖更新两处 `CURRENT_STATUS.md`；不新建 progress、Next、Notes、HANDOFF 或 audit 状态文档。
+- 状态变化时同步更新根 `PROJECT_NEXT.md` 中本项目的 `Current` / `Next` 并刷新 `Generated`；不得改其他项目章节。
 - 保持离线优先与可替换 `db.js` 边界；没有明确多人需求时不擅自引入云端数据库、API 或认证。
