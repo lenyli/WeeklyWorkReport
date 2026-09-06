@@ -1,6 +1,6 @@
 # WWR · Current Status
 
-> 本文件是项目唯一状态文档。状态确有变化时只更新本文件；不要新建 progress、Next、Notes、HANDOFF 或 audit 状态文档。项目规则统一写在 `README.md`。
+> 唯一当前状态；项目规则见 [README.md](README.md)。验证基线沿用原记录，本次文档整理未重跑。
 
 ## 项目与硬约束
 
