@@ -2,13 +2,57 @@
 
 项目状态：已完成
 
+记录类型：项目
+
+## 项目资料
+
+| 字段 | 内容 |
+|---|---|
+| 项目名称 | WWR |
+| 项目类型 | 软件 |
+| 领域 | 研发部工作周报 |
+| 平台 | 浏览器 / PWA |
+| 技术 | HTML、CSS、JavaScript、IndexedDB、localStorage、Service Worker、Excel 导出 |
+| 架构 | 纯静态单浏览器 MVP；db.js 统一数据访问；草稿与正式提交分开，无多设备同步 |
+| Agent | 历史 Claude 平台配置 frontend-developer；无 canonical 项目 Agent，未确认当前启用 |
+| Skill | 既有项目约束引用全局 pwa-app；当前无项目专属 Skill；未据此补写历史执行记录 |
+| 源码 | /Volumes/Leny/Projects/WWR |
+| 关联 | 当前无已登记项目关联 |
+
+资料来自本项目记录与能力清单；“已登记”不代表当前启用，“待确定”不等于读取失败。当前进度与验证以 CURRENT_STATUS.md 为准。
+
+## 定位与范围
+
 通用权限、Git、验证/出包、记录与镜像规则统一遵循 [总规则](../CLAUDE.md)；本文件只补充项目事实和更严格的产品边界。当前进度见 [CURRENT_STATUS.md](CURRENT_STATUS.md)。
 
 这是一个使用浏览器本地数据库占位的 PWA 周报工具。成员可以填写、保存草稿并提交周报；leader 可以查看账号、提交情况并生成汇总 Excel。
 
 当前阶段、限制和下一步统一见 [`CURRENT_STATUS.md`](CURRENT_STATUS.md)。
 
-## 项目结构与核心模块
+### 填写与汇总业务流程
+
+- **填写周报**：
+  1. 使用姓名和六位数字密码登录（新用户首登初始密码 `123456` 并自动注册）；
+  2. 自动选定本周一日期（可手动切换周），填写周一至周五内容；
+  3. 点击“提交周报”覆盖本人该周记录；支持离线草稿自动保存。
+- **汇总周报**：
+  1. 使用 leader 账号登录（初始“周南”/`123456`）；
+  2. 选择目标周一，查看提交名单，可上传旧版 Excel 补录；
+  3. 点击“导出 Excel”生成按姓名首字母分 Sheet 的汇总文件。
+
+### 当前能力
+
+- 成员本地登录、修改六位数字密码、按周填写草稿和提交/覆盖本人周报。
+- leader 管理当前账号、查看提交状态、兼容导入旧 Excel 并导出多人汇总 Excel。
+- Service Worker 离线缓存、PWA 安装和支持环境下的系统文件分享。
+
+## 架构与技术
+
+### 资料核验依据
+
+平台、技术与架构依据：[manifest.webmanifest](</Volumes/Leny/Projects/WWR/manifest.webmanifest>)、[db.js](</Volumes/Leny/Projects/WWR/db.js>)、[app.js](</Volumes/Leny/Projects/WWR/app.js>)、[sw.js](</Volumes/Leny/Projects/WWR/sw.js>)。能力核对：`.claude/agents`。核对包括既有 Agent 的 required-skills；供应商内嵌能力、历史适配和规划与项目当前配置分开登记。以上为源码/文档静态证据，运行与验收状态以 CURRENT_STATUS 为准。
+
+### 项目结构与核心模块
 
 ```text
 WWR/
@@ -30,7 +74,7 @@ WWR/
 - **正式入口**：`index.html`。
 - **数据事实源**：当前浏览器实例的 IndexedDB 与 localStorage。
 
-## 架构约束
+### 架构约束
 
 ```text
 index.html + app.js → db.js → IndexedDB
@@ -43,7 +87,48 @@ index.html + app.js → db.js → IndexedDB
 - **纯静态无服务端**：当前无后端 API、无共享数据库、无真实服务端身份认证；未获明确多人共享需求前不擅自引入云端后端。
 - **缓存版本同步**：静态文件变动必须同步递增 `sw.js` 缓存版本。
 
-## 编码规范
+## 运行与验证
+
+### 构建、测试与格式化
+
+#### 本地运行与预览
+
+- 纯静态项目，无构建步骤。在项目根运行：
+  ```bash
+  python3 -m http.server 8000
+  ```
+  浏览器打开 `http://localhost:8000` 即可预览与测试。
+
+#### 测试与语法检查
+
+- **JavaScript 语法检查**：
+  ```bash
+  node -c app.js db.js sw.js
+  ```
+
+#### 格式化与检查
+
+- 当前无独立强制格式化工具；不要为了 README 整理自行引入 formatter。
+
+### 任务验收标准
+
+以下构建、测试、运行和交付项仅在用户按总规则明确开启相应阶段时适用；默认代码阶段只做静态自检并交付源码。
+
+1. **静态缓存同步**：静态资源修改后已同步更新 `sw.js` 缓存版本；
+2. **语法检查通过**：JavaScript 脚本通过 `node -c` 语法检查；
+3. **人工验收标记**：周报填报流、Excel 导出内容与离线安装需明确标记为“待用户验收”，不得冒充已验证；
+
+## Agent 与 Skill
+
+### Agent 与 Skill
+
+- Agent：仅有 Claude 平台的 `frontend-developer` 遗留配置；没有 canonical 项目 Agent；`.ai/manifest.yaml` 仅登记既有 pwa-app 规则引用，不视为跨工具常驻 Agent。
+- Skill：本 README 既有“离线 PWA 规范”已明确引用全局 `pwa-app`，现补登记 manifest；没有历史调用证据，不补造执行记录。
+- 全局索引：`/Volumes/Leny/ProjectRecord/Agents.md`、`/Volumes/Leny/ProjectRecord/Skills.md`。
+
+## 项目约束
+
+### 编码规范
 
 通用编码规则遵循 `/Volumes/Leny/Projects/CLAUDE.md`。
 
@@ -52,39 +137,7 @@ index.html + app.js → db.js → IndexedDB
 - **离线 PWA 规范**：遵循 `skills/pwa-app/SKILL.md` 规范；
 - **接口防腐**：保持 `db.js` 接口签名稳定，确保未来云端 API 平滑替换。
 
-## 构建、测试与格式化
-
-### 本地运行与预览
-
-- 纯静态项目，无构建步骤。在项目根运行：
-  ```bash
-  python3 -m http.server 8000
-  ```
-  浏览器打开 `http://localhost:8000` 即可预览与测试。
-
-### 测试与语法检查
-
-- **JavaScript 语法检查**：
-  ```bash
-  node -c app.js db.js sw.js
-  ```
-
-### 格式化与检查
-
-- 当前无独立强制格式化工具；不要为了 README 整理自行引入 formatter。
-
-## 填写与汇总业务流程
-
-- **填写周报**：
-  1. 使用姓名和六位数字密码登录（新用户首登初始密码 `123456` 并自动注册）；
-  2. 自动选定本周一日期（可手动切换周），填写周一至周五内容；
-  3. 点击“提交周报”覆盖本人该周记录；支持离线草稿自动保存。
-- **汇总周报**：
-  1. 使用 leader 账号登录（初始“周南”/`123456`）；
-  2. 选择目标周一，查看提交名单，可上传旧版 Excel 补录；
-  3. 点击“导出 Excel”生成按姓名首字母分 Sheet 的汇总文件。
-
-## 禁止修改与受保护路径
+### 禁止修改与受保护路径
 
 - **禁止修改**：
   - 当前没有额外的项目内绝对禁止目录；仍不得修改本项目范围之外的文件；
@@ -95,32 +148,21 @@ index.html + app.js → db.js → IndexedDB
 - **修改前需用户授权**：
   - `db.js` 数据契约重构、云端多人架构改造方案。
 
-## 权限与安全策略
+### 权限与安全策略
 
 - **浏览器沙盒保护**：纯前端运行，不向任何第三方服务发送周报或账号数据；
 - **密码机制说明**：本地六位密码仅用于 MVP 流程模拟，上线云端时必须在服务端使用专用加盐哈希；
 
-## 任务验收标准
+## 记录与链接
 
-以下构建、测试、运行和交付项仅在用户按总规则明确开启相应阶段时适用；默认代码阶段只做静态自检并交付源码。
+README.md、CURRENT_STATUS.md 的唯一编辑源为本目录；决定源为 `/Volumes/Leny/Projects/WWR/DECISION_EVENTS.md`。三个记录文件同步为 ProjectRecord 的同名逐字副本；只在唯一源编辑，消费者不得反向修改副本。
 
-1. **静态缓存同步**：静态资源修改后已同步更新 `sw.js` 缓存版本；
-2. **语法检查通过**：JavaScript 脚本通过 `node -c` 语法检查；
-3. **人工验收标记**：周报填报流、Excel 导出内容与离线安装需明确标记为“待用户验收”，不得冒充已验证；
+- 总规则：[CLAUDE.md](/Volumes/Leny/Projects/CLAUDE.md)
+- 当前状态：[CURRENT_STATUS.md](/Volumes/Leny/Projects/WWR/CURRENT_STATUS.md)
+- 决策历史：[DECISION_EVENTS.md](/Volumes/Leny/Projects/WWR/DECISION_EVENTS.md)
+- PR 入口：`/Volumes/Leny/ProjectRecord/WWR`。README 与状态的相对路径以唯一编辑源目录解析；PR 不复制源码、素材或 Agent/Skill 定义。
 
-## 当前能力
-
-- 成员本地登录、修改六位数字密码、按周填写草稿和提交/覆盖本人周报。
-- leader 管理当前账号、查看提交状态、兼容导入旧 Excel 并导出多人汇总 Excel。
-- Service Worker 离线缓存、PWA 安装和支持环境下的系统文件分享。
-
-## Agent 与 Skill
-
-- Agent：仅有 Claude 平台的 `frontend-developer` 遗留配置；没有 canonical 项目 Agent 或 `.ai/manifest.yaml`，不视为跨工具常驻 Agent。
-- Skill：当前没有已确认采用的项目或全局 Skill；全局 `pwa-app` 是后来从多个项目经验中提炼，不倒推为本项目既有使用记录。
-- 全局索引：`/Volumes/Leny/ProjectRecord/Agents.md`、`/Volumes/Leny/ProjectRecord/Skills.md`。
-
-## 项目规则
+### 项目规则
 
 - 遵守 `/Volumes/Leny/Projects/CLAUDE.md`；首次接手或阶段不明时读本文件与 `CURRENT_STATUS.md`，局部任务只补读相关章节；只维护本项目根及 `/Volumes/Leny/ProjectRecord/WWR/`，不修改其他项目记录。
 - 保持离线优先与可替换 `db.js` 边界；没有明确多人需求时不擅自引入云端数据库、API 或认证。

@@ -1,0 +1,15 @@
+schema_version: 1
+shared_rules:
+  path: /Volumes/Leny/Projects/CLAUDE.md
+status:
+  path: CURRENT_STATUS.md
+skills:
+  - name: pwa-app
+    source: /Volumes/Leny/Projects/skills/pwa-app/SKILL.md
+    scope: global
+agents: []
+adapters:
+  claude: []
+  codex: []
+  antigravity: []
+  cursor: []
