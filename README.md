@@ -1,5 +1,7 @@
 # 智慧云影研发部工作周报
 
+项目状态：已完成
+
 通用权限、Git、验证/出包、记录与镜像规则统一遵循 [总规则](../CLAUDE.md)；本文件只补充项目事实和更严格的产品边界。当前进度见 [CURRENT_STATUS.md](CURRENT_STATUS.md)。
 
 这是一个使用浏览器本地数据库占位的 PWA 周报工具。成员可以填写、保存草稿并提交周报；leader 可以查看账号、提交情况并生成汇总 Excel。
@@ -120,5 +122,5 @@ index.html + app.js → db.js → IndexedDB
 
 ## 项目规则
 
-- 开始任务先读 `/Volumes/Leny/Projects/CLAUDE.md`，再读本文件与 `CURRENT_STATUS.md`；只维护本项目根及 `/Volumes/Leny/ProjectRecord/WWR/`，不修改其他项目记录。
+- 遵守 `/Volumes/Leny/Projects/CLAUDE.md`；首次接手或阶段不明时读本文件与 `CURRENT_STATUS.md`，局部任务只补读相关章节；只维护本项目根及 `/Volumes/Leny/ProjectRecord/WWR/`，不修改其他项目记录。
 - 保持离线优先与可替换 `db.js` 边界；没有明确多人需求时不擅自引入云端数据库、API 或认证。
