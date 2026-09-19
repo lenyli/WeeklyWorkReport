@@ -125,7 +125,7 @@ index.html + app.js → db.js → IndexedDB
 
 - Agent：仅有 Claude 平台的 `frontend-developer` 遗留配置；没有 canonical 项目 Agent；`.ai/manifest.yaml` 仅登记既有 pwa-app 规则引用，不视为跨工具常驻 Agent。
 - Skill：本 README 既有“离线 PWA 规范”已明确引用全局 `pwa-app`，现补登记 manifest；没有历史调用证据，不补造执行记录。
-- 全局索引：`/Volumes/Leny/ProjectRecord/Agents.md`、`/Volumes/Leny/ProjectRecord/Skills.md`。
+- 全局索引：[Agent 库](/Volumes/Leny/Projects/agent/) · [Skill 索引](/Volumes/Leny/Projects/skills/INDEX.md)。
 
 ## 项目约束
 
@@ -156,14 +156,13 @@ index.html + app.js → db.js → IndexedDB
 
 ## 记录与链接
 
-README.md、CURRENT_STATUS.md 的唯一编辑源为本目录；决定源为 `/Volumes/Leny/Projects/WWR/DECISION_EVENTS.md`。三个记录文件同步为 ProjectRecord 的同名逐字副本；只在唯一源编辑，消费者不得反向修改副本。
+README.md、CURRENT_STATUS.md 的唯一编辑源为本目录；决定源为 `/Volumes/Leny/Projects/WWR/DECISION_EVENTS.md`。三个记录文件在本目录维护，为唯一事实源。
 
 - 总规则：[CLAUDE.md](/Volumes/Leny/Projects/CLAUDE.md)
 - 当前状态：[CURRENT_STATUS.md](/Volumes/Leny/Projects/WWR/CURRENT_STATUS.md)
 - 决策历史：[DECISION_EVENTS.md](/Volumes/Leny/Projects/WWR/DECISION_EVENTS.md)
-- PR 入口：`/Volumes/Leny/ProjectRecord/WWR`。README 与状态的相对路径以唯一编辑源目录解析；PR 不复制源码、素材或 Agent/Skill 定义。
 
 ### 项目规则
 
-- 遵守 `/Volumes/Leny/Projects/CLAUDE.md`；首次接手或阶段不明时读本文件与 `CURRENT_STATUS.md`，局部任务只补读相关章节；只维护本项目根及 `/Volumes/Leny/ProjectRecord/WWR/`，不修改其他项目记录。
+- 遵守 `/Volumes/Leny/Projects/CLAUDE.md`；首次接手或阶段不明时读本文件与 `CURRENT_STATUS.md`，局部任务只补读相关章节；只维护本项目根，不修改其他项目记录。
 - 保持离线优先与可替换 `db.js` 边界；没有明确多人需求时不擅自引入云端数据库、API 或认证。
