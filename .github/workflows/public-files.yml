@@ -1,0 +1,47 @@
+name: Check public website files
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - name: Check tracked files against the publication allowlist
+        shell: bash
+        run: |
+          set -euo pipefail
+          blocked="$(git ls-files -ci --exclude-standard)"
+          if [[ -n "$blocked" ]]; then
+            printf '%s\n' 'Files outside the publication allowlist are tracked:' "$blocked"
+            exit 1
+          fi
+      - name: Check JavaScript syntax
+        run: git ls-files -z '*.js' | xargs -0 -r -n1 node --check
+      - name: Check offline asset references
+        shell: python
+        run: |
+          import json, pathlib, re, subprocess, urllib.parse
+          files = subprocess.check_output(['git', 'ls-files', '-z']).decode().split('\0')
+          for name in filter(None, files):
+              path = pathlib.Path(name)
+              refs = []
+              if path.name == 'sw.js':
+                  match = re.search(r'const\s+(?:ASSETS|APP_SHELL)\s*=\s*\[([\s\S]*?)\];', path.read_text())
+                  if not match:
+                      raise SystemExit('Missing explicit offline asset list: ' + name)
+                  refs = re.findall(r'[\x22\x27]([^\x22\x27]+)[\x22\x27]', match.group(1))
+              elif path.name.endswith('.webmanifest'):
+                  refs = [item['src'] for item in json.loads(path.read_text()).get('icons', [])]
+              for ref in refs:
+                  url = urllib.parse.urlsplit(ref)
+                  if url.scheme or url.netloc or url.path.startswith('/'):
+                      continue
+                  target = path.parent / urllib.parse.unquote(url.path)
+                  if target.is_dir():
+                      target = target / 'index.html'
+                  if not target.is_file():
+                      raise SystemExit('Missing runtime asset: ' + str(target))
+          print('Publication allowlist and offline asset references verified.')

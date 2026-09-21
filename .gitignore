@@ -1,8 +1,17 @@
-.DS_Store
-.wrangler/
-
-# macOS AppleDouble 垃圾
-._*
-.DS_Store
-.AppleDouble
-GEMINI.md
+# Public repository: only reviewed runtime and publishing files may be tracked.
+# Keep project notes, AI configuration, reports and backups local.
+# Review this allowlist before adding a new runtime file; do not use git add -f.
+*
+!*/
+!/.gitignore
+!/.nojekyll
+!/.github/workflows/public-files.yml
+!/index.html
+!/app.js
+!/db.js
+!/styles.css
+!/sw.js
+!/manifest.webmanifest
+!/icons/icon.svg
+!/icons/icon-192.png
+!/icons/icon-512.png
