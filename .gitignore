@@ -4,6 +4,7 @@
 *
 !*/
 !/.gitignore
+!/README.md
 !/.nojekyll
 !/.github/workflows/public-files.yml
 !/index.html
